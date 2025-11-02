@@ -28,7 +28,7 @@ class LottoResultServiceTest {
 
         assertThat(results.get(Rank.FIRST)).isEqualTo(1);
         assertThat(results.get(Rank.FIFTH)).isEqualTo(1);
-        assertThat(results.get(Rank.THIRD)).isEqualTo(1);
+        assertThat(results.get(Rank.FOURTH)).isEqualTo(1);
     }
 
     @DisplayName("보너스 번호가 포함된 경우 2등으로 판별한다")
