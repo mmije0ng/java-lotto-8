@@ -18,13 +18,31 @@ public class LottoPurchaseController {
         this.lottoGenerator = new LottoGenerator();
     }
 
-    public List<Lotto> processPurchase() {
+    public PurchaseResult processPurchase() {
         int amount = inputPurchaseAmountWithRetry();
         int purchaseCount = lottoPurchaseService.calculatePurchaseCount(amount);
         printPurchaseCount(purchaseCount);
         List<Lotto> lottos = lottoGenerator.generateLottos(purchaseCount);
         printLottos(lottos);
-        return lottos;
+        return new PurchaseResult(lottos, amount);
+    }
+
+    public static class PurchaseResult {
+        private final List<Lotto> lottos;
+        private final int amount;
+
+        public PurchaseResult(List<Lotto> lottos, int amount) {
+            this.lottos = lottos;
+            this.amount = amount;
+        }
+
+        public List<Lotto> getLottos() {
+            return lottos;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
     }
 
     private int inputPurchaseAmountWithRetry() {
