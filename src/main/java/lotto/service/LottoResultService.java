@@ -27,8 +27,15 @@ public class LottoResultService {
 
     private Rank determineRank(Lotto lotto, Lotto winningLotto, int bonusNumber) {
         int matchCount = lotto.countMatchingNumbers(winningLotto);
-        boolean hasBonus = lotto.containsNumber(bonusNumber);
+        boolean hasBonus = isBonusApplicable(matchCount, lotto, bonusNumber);
         return Rank.valueOf(matchCount, hasBonus);
+    }
+
+    private boolean isBonusApplicable(int matchCount, Lotto lotto, int bonusNumber) {
+        if (matchCount != 5) {
+            return false;
+        }
+        return lotto.containsNumber(bonusNumber);
     }
 
     public long calculateTotalPrize(Map<Rank, Integer> results) {
